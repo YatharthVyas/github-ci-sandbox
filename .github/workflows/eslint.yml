@@ -1,0 +1,26 @@
+name: Lint with ESLint
+
+on:
+  pull_request:
+    branches: [ "main", "eslint-checks"]
+  push:
+    branches: [ "main", "eslint-checks"]
+
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+
+    - name: Install ESLint
+      run: npm install --no-save eslint @eslint/js globals
+
+    - name: Run ESLint
+      run: npx eslint .
